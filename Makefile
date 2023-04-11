@@ -9,7 +9,9 @@ build-kernel:
 	gcc -m32 -Wall -fomit-frame-pointer -fno-pic -nostdinc -fno-builtin -I./kernel/include -c -o main.o kernel/main.c
 	gcc -m32 -Wall -fomit-frame-pointer -fno-pic -nostdinc -fno-builtin -I./kernel/include -c -o serial.o kernel/serial.c
 	gcc -m32 -Wall -fomit-frame-pointer -fno-pic -nostdinc -fno-builtin -I./kernel/include -c -o stdio.o kernel/stdio.c
-	ld  -m elf_i386 -T kernel/link.ld -o kernel.bin start.o main.o serial.o stdio.o
+	gcc -m32 -Wall -fomit-frame-pointer -fno-pic -nostdinc -fno-builtin -I./kernel/include -c -o string.o kernel/string.c
+	gcc -m32 -Wall -fomit-frame-pointer -fno-pic -nostdinc -fno-builtin -I./kernel/include -c -o init.o kernel/arch/x86/gdt.c
+	ld  -m elf_i386 -T kernel/link.ld -o kernel.bin start.o main.o serial.o stdio.o string.o init.o
 
 clean-kernel:
 	rm start.o main.o serial.o stdio.o kernel.bin

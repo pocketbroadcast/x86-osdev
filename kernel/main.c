@@ -1,3 +1,4 @@
+#include "arch/x86/include/init.h"
 #include "include/serial.h"
 #include "include/stdio.h"
 
@@ -30,7 +31,11 @@ int main()
     put_hexbyte(*(unsigned char*)(0x0475));
     putc('\n');
 
-    puts("Nr of hard disks: ");
+    puts("Setup kernel gdt...");
+    init_gdt();
+    puts("success\n");
+    
+    
     char x = read_serial();
     write_serial('h');
     write_serial(x);
